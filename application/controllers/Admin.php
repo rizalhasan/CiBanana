@@ -24,16 +24,72 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_khimar');
+		$this->load->model('M_admin');
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
 			return $hasil_rupiah;
 		}
 	}							
 
+	public function edit_admin($id)
+	{
+		if($this->input->post('submit')){
+			if($this->M_admin->validation("update")){
+				$this->M_admin->edit($id);
+				redirect('admin/admin');
+			}
+		}
+
+		$data['admin'] = $this->M_admin->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vEdit_admin', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function cek_admin($id)
+	{
+		$data['admin'] = $this->M_admin->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vCek_admin', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
 	public function index()
 	{
 		$this->load->view('admin/theme/header');
 		$this->load->view('admin/vIndex');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_admin($id)
+	{
+		$this->M_admin->delete($id);
+		redirect('Admin/admin');
+	}
+
+	public function tambah_admin(){
+		if($this->input->post('submit')){
+			if($this->M_admin->validation("save")){
+				$this->M_admin->save();
+				redirect('Admin/admin');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vForm_admin');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function form_admin(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vForm_admin');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function admin(){
+		$data['admin'] = $this->M_admin->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vTable_admin', $data);
 		$this->load->view('admin/theme/footer');
 	}
 
@@ -75,9 +131,7 @@ class Admin extends CI_Controller
 		redirect('admin/khimar');
 	}
 
-	public function khimar(){
-				
-
+	public function khimar(){ 
 		$data['khimar'] = $this->M_khimar->view();
 		$this->load->view('admin/theme/header');
 		$this->load->view('admin/khimar/table_khimar', $data);
@@ -89,7 +143,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/khimar/form_khimar');
 		$this->load->view('admin/theme/footer');
 	}
-
+ 
 	public function tambah_khimar(){
 		if($this->input->post('submit')){
 			if($this->M_khimar->validation("save")){
