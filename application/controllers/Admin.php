@@ -37,6 +37,18 @@ class Admin extends CI_Controller
 		$this->load->view('admin/theme/footer');
 	}
 
+	public function kategori(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/kategori/vTable_kategori');
+		$this->load->view('admin/theme/footer');			
+	}
+
+	public function beranda(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/beranda/vIndex');
+		$this->load->view('admin/theme/footer');	
+	}
+
 	public function edit_khimar($id){
 		if($this->input->post('submit')){
 			if($this->M_khimar->validation("update")){
