@@ -25,6 +25,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_khimar');
 		$this->load->model('M_admin');
+		$this->load->model('M_produk');
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
 			return $hasil_rupiah;
@@ -156,4 +157,62 @@ class Admin extends CI_Controller
 		$this->load->view('admin/khimar/form_khimar');
 		$this->load->view('admin/theme/footer');
 	}
+
+
+//PRODUK
+	public function tambah_produk(){
+		if($this->input->post('submit')){
+			if($this->M_produk->validation("save")){
+				$this->M_produk->save();
+				redirect('Admin/produk');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vForm_produk');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function form_produk(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vForm_produk');
+		$this->load->view('admin/theme/footer');
+	}
+
+		public function produk(){
+		$data['admin'] = $this->M_produk->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vTable_produk', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_produk($id)
+	{
+		$this->M_produk->delete($id);
+		redirect('Admin/produk');
+	}
+
+	public function cek_produk($id)
+	{
+		$data['admin'] = $this->M_produk->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vCek_produk', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+		public function edit_produk($id)
+	{
+		if($this->input->post('submit')){
+			if($this->M_produk->validation("update")){
+				$this->M_produk->edit($id);
+				redirect('admin/produk');
+			}
+		}
+
+		$data['admin'] = $this->M_produk->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vEdit_produk', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
 }
