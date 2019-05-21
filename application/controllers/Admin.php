@@ -26,6 +26,8 @@ class Admin extends CI_Controller
 		$this->load->model('M_khimar');
 		$this->load->model('M_admin');
 		$this->load->model('M_produk');
+		$this->load->model('M_artikel');
+		$this->load->model('M_isiKategori');
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
 			return $hasil_rupiah;
@@ -215,4 +217,106 @@ class Admin extends CI_Controller
 		$this->load->view('admin/theme/footer');		
 	}
 
+
+//ARTIKEL
+
+	public function artikel(){
+		$data['artikel'] = $this->M_artikel->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/artikel/table_artikel', $data);
+		$this->load->view('admin/theme/footer');
+	}
+	public function form_artikel(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/artikel/form_artikel');
+		$this->load->view('admin/theme/footer');
+	}
+	public function tambah_artikel(){
+		if($this->input->post('submit')){
+			if($this->M_artikel->validation("save")){
+				$this->M_artikel->save();
+				redirect('admin/artikel');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/artikel/form_artikel');
+		$this->load->view('admin/theme/footer');
+	}
+	public function edit_artikel($id){
+		if($this->input->post('submit')){
+			if($this->M_artikel->validation("update")){
+				$this->M_artikel->edit($id);
+				redirect('admin/artikel');
+			}
+		}
+
+		$data['artikel'] = $this->M_artikel->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/artikel/edit_artikel', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function lihat_artikel($id){
+		$data['artikel'] = $this->M_artikel->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/artikel/cek_artikel', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_artikel($id){
+		$this->M_artikel->delete($id);
+		redirect('admin/artikel');
+	}
+
+
+//isikategori 
+	public function isiKategori(){
+		$data['isiKategori'] = $this->M_isiKategori->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/table_isiKategori', $data);
+		$this->load->view('admin/theme/footer');
+	}
+	public function form_isiKategori(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/form_isiKategori');
+		$this->load->view('admin/theme/footer');
+	}
+	public function tambah_isiKategori(){
+		if($this->input->post('submit')){
+			if($this->M_isiKategori->validation("save")){
+				$this->M_isiKategori->save();
+				redirect('admin/isiKategori');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/form_isiKategori');
+		$this->load->view('admin/theme/footer');
+	}
+	public function edit_isiKategori($id){
+		if($this->input->post('submit')){
+			if($this->M_isiKategori->validation("update")){
+				$this->M_isiKategori->edit($id);
+				redirect('admin/isiKategori');
+			}
+		}
+
+		$data['isiKategori'] = $this->M_isiKategori->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/edit_isiKategori', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function lihat_isiKategori($id){
+		$data['artikel'] = $this->M_artikel->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/cek_isiKategori', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_isiKategori($id){
+		$this->M_isiKategori->delete($id);
+		redirect('admin/isiKategori');
+	}
 }
