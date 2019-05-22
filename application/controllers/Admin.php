@@ -24,17 +24,76 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_khimar');
+		$this->load->model('M_admin');
+		$this->load->model('M_produk');
 		$this->load->model('M_artikel');
+		$this->load->model('M_isiKategori');
+		$this->load->model('M_konfirmasi');
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
 			return $hasil_rupiah;
 		}
 	}							
 
+	public function edit_admin($id)
+	{
+		if($this->input->post('submit')){
+			if($this->M_admin->validation("update")){
+				$this->M_admin->edit($id);
+				redirect('admin/admin');
+			}
+		}
+
+		$data['admin'] = $this->M_admin->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vEdit_admin', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function cek_admin($id)
+	{
+		$data['admin'] = $this->M_admin->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vCek_admin', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
 	public function index()
 	{
 		$this->load->view('admin/theme/header');
 		$this->load->view('admin/vIndex');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_admin($id)
+	{
+		$this->M_admin->delete($id);
+		redirect('Admin/admin');
+	}
+
+	public function tambah_admin(){
+		if($this->input->post('submit')){
+			if($this->M_admin->validation("save")){
+				$this->M_admin->save();
+				redirect('Admin/admin');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vForm_admin');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function form_admin(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vForm_admin');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function admin(){
+		$data['admin'] = $this->M_admin->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/admin/vTable_admin', $data);
 		$this->load->view('admin/theme/footer');
 	}
 
@@ -76,9 +135,7 @@ class Admin extends CI_Controller
 		redirect('admin/khimar');
 	}
 
-	public function khimar(){
-				
-
+	public function khimar(){ 
 		$data['khimar'] = $this->M_khimar->view();
 		$this->load->view('admin/theme/header');
 		$this->load->view('admin/khimar/table_khimar', $data);
@@ -90,7 +147,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/khimar/form_khimar');
 		$this->load->view('admin/theme/footer');
 	}
-
+ 
 	public function tambah_khimar(){
 		if($this->input->post('submit')){
 			if($this->M_khimar->validation("save")){
@@ -103,6 +160,66 @@ class Admin extends CI_Controller
 		$this->load->view('admin/khimar/form_khimar');
 		$this->load->view('admin/theme/footer');
 	}
+
+
+//PRODUK
+	public function tambah_produk(){
+		if($this->input->post('submit')){
+			if($this->M_produk->validation("save")){
+				$this->M_produk->save();
+				redirect('Admin/produk');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vForm_produk');
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function form_produk(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vForm_produk');
+		$this->load->view('admin/theme/footer');
+	}
+
+		public function produk(){
+		$data['admin'] = $this->M_produk->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vTable_produk', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_produk($id)
+	{
+		$this->M_produk->delete($id);
+		redirect('Admin/produk');
+	}
+
+	public function cek_produk($id)
+	{
+		$data['admin'] = $this->M_produk->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vCek_produk', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+		public function edit_produk($id)
+	{
+		if($this->input->post('submit')){
+			if($this->M_produk->validation("update")){
+				$this->M_produk->edit($id);
+				redirect('admin/produk');
+			}
+		}
+
+		$data['admin'] = $this->M_produk->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vEdit_produk', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+
+//ARTIKEL
 
 	public function artikel(){
 		$data['artikel'] = $this->M_artikel->view();
@@ -153,4 +270,105 @@ class Admin extends CI_Controller
 		redirect('admin/artikel');
 	}
 
+
+//isikategori 
+	public function isiKategori(){
+		$data['isiKategori'] = $this->M_isiKategori->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/table_isiKategori', $data);
+		$this->load->view('admin/theme/footer');
+	}
+	public function form_isiKategori(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/form_isiKategori');
+		$this->load->view('admin/theme/footer');
+	}
+	public function tambah_isiKategori(){
+		if($this->input->post('submit')){
+			if($this->M_isiKategori->validation("save")){
+				$this->M_isiKategori->save();
+				redirect('admin/isiKategori');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/form_isiKategori');
+		$this->load->view('admin/theme/footer');
+	}
+	public function edit_isiKategori($id){
+		if($this->input->post('submit')){
+			if($this->M_isiKategori->validation("update")){
+				$this->M_isiKategori->edit($id);
+				redirect('admin/isiKategori');
+			}
+		}
+
+		$data['isiKategori'] = $this->M_isiKategori->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/edit_isiKategori', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function lihat_isiKategori($id){
+		$data['artikel'] = $this->M_artikel->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/isiKategori/cek_isiKategori', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_isiKategori($id){
+		$this->M_isiKategori->delete($id);
+		redirect('admin/isiKategori');
+	}
+
+
+//KONFIRMASI 
+	public function konfirmasi(){
+		$data['konfirmasi'] = $this->M_konfirmasi->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/konfirmasi/table_konfirmasi', $data);
+		$this->load->view('admin/theme/footer');
+	}
+	public function form_konfirmasi(){
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/konfirmasi/form_konfirmasi');
+		$this->load->view('admin/theme/footer');
+	}
+	public function tambah_konfirmasi(){
+		if($this->input->post('submit')){
+			if($this->M_konfirmasi->validation("save")){
+				$this->M_konfirmasi->save();
+				redirect('admin/konfirmasi');
+			}
+		}
+
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/konfirmasi/form_konfirmasi');
+		$this->load->view('admin/theme/footer');
+	}
+	public function edit_konfirmasi($id){
+		if($this->input->post('submit')){
+			if($this->M_konfirmasi->validation("update")){
+				$this->M_konfirmasi->edit($id);
+				redirect('admin/isiKategori');
+			}
+		}
+
+		$data['konfirmasi'] = $this->M_konfirmasi->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/konfirmasi/edit_konfirmasi', $data);
+		$this->load->view('admin/theme/footer');		
+	}
+
+	public function lihat_konfirmasi($id){
+		$data['konfirmasi'] = $this->M_konfirmasi->view_by($id);
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/konfirmasi/cek_konfirmasi', $data);
+		$this->load->view('admin/theme/footer');
+	}
+
+	public function hapus_konfirmasi($id){
+		$this->M_konfirmasi->delete($id);
+		redirect('admin/konfirmasi');
+	}
 }

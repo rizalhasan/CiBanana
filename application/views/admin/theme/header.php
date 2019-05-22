@@ -56,11 +56,11 @@
                     <div class="sidebar">
                         <ul class="widget widget-menu unstyled">
                             <li><a href="<?= base_url('Admin/beranda')?>"><i class="menu-icon"></i>Beranda</a></li>
-                            <li><a href="<?= base_url('Admin/kategori')?>"><i class="menu-icon"></i>Kategori</a></li>
-                            <li><a href="#"><i class="menu-icon"></i>Admin</a></li>
+                            <li><a href="<?= base_url('Admin/isiKategori')?>"><i class="menu-icon"></i>Kategori</a></li>
+                            <li><a href="<?= base_url('Admin/admin')?>"><i class="menu-icon"></i>Admin</a></li>
                             <li><a href="#"><i class="menu-icon"></i>Order</a></li>
-                            <li><a href="#"><i class="menu-icon"></i>Produk</a></li>
-                            <li><a href="#"><i class="menu-icon"></i>Konfirmasi</a></li>
+                            <li><a href="<?= base_url('Admin/produk')?>"><i class="menu-icon"></i>Produk</a></li>
+                            <li><a href="<?= base_url('Admin/konfirmasi')?>"><i class="menu-icon"></i>Konfirmasi</a></li>
                             <li><a href="<?= base_url('Admin/artikel')?>"><i class="menu-icon"></i>Artikel</a></li>
                             <li><a href="#"><i class="menu-icon"></i>Logout</a></li>
                         </ul>
