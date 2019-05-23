@@ -26,10 +26,12 @@ class Admin extends CI_Controller
 		$this->load->model('M_khimar');
 		$this->load->model('M_admin');
 		$this->load->model('M_produk');
+
 		$this->load->model('M_artikel');
 		$this->load->model('M_isiKategori');
 
 		$this->load->model('M_konfirmasi');
+
 
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
@@ -374,4 +376,5 @@ class Admin extends CI_Controller
 		$this->M_konfirmasi->delete($id);
 		redirect('admin/konfirmasi');
 	}
+
 }
