@@ -31,6 +31,7 @@ class M_admin extends CI_Model{
 
 	public function view()
 	{
+		$this->db->order_by('username', 'ASC');
 		$this->db->select("*");
 		return $this->db->get("admin_web")->result();
 	}
