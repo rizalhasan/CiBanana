@@ -17,6 +17,7 @@
 											<th>Judul</th>
 											<th>Tanggal</th>
 											<th>Author</th>
+											<th>Isi</th>
 											<th>Kategori</th>
 											<th>Views</th>
 											<th><center>Aksi</center></th>
@@ -33,6 +34,7 @@
 											<td><?php echo $data->judul;?></td>
 											<td><?php echo $data->tanggal;?></td>
 											<td><?php echo $data->author;?></td>
+											<td><?php echo $data->isi;?></td>
 											<td><?php echo $data->kategori;?></td>
 											<td><?php echo $data->views;?></td>
 											<td><center>

@@ -4,6 +4,7 @@
 						<div class="module">
 							<div class="module-head">
 								<h3>FORM PRODUK</h3>
+								<h3>FORM ADMIN</h3>
 							</div>
 							<div class="module-body">
 									<br />
@@ -23,6 +24,7 @@
 														}
 													?>
 												</select>
+												<input type="text" id="" placeholder="" class="span8" name="category" value="<?= set_value('category')?>">
 												<large style="color: red;"><?= form_error('category');?></large>
 											</div>
 										</div>

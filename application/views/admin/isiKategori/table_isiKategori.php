@@ -16,6 +16,9 @@
 											<th width="30px;"><center>No.</center></th>
 											<th>Nama Kategori</th>
 											<th width="100px;"><center>Aksi</center></th>
+											<th><center>No.</center></th>
+											<th>Nama</th>
+											<th><center>Aksi</center></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -31,6 +34,9 @@
 												<a href="<?php echo base_url('admin/edit_isiKategori/'.$data->id_kategori)?>">
 													<u>Ubah</u>
 												</a>
+                                                <a href="<?php echo base_url('admin/lihat_isiKategori/'.$data->id_kategori)?>">&nbsp;
+                                                	<u>Cek</u>
+                                                </a>
                                                 <a href="<?php echo base_url('admin/hapus_isiKategori/'.$data->id_kategori)?>" onclick="javascript: return confirm('Hapus data?')">&nbsp;
                                                 	<u>Hapus</u>
                                                 </a>
@@ -53,3 +59,12 @@
 					<br />
 					</div>
 				</div>
+									</tfoot>
+								</table>
+							</div>
+						</div><!--/.module-->
+
+					<br />
+						
+					</div><!--/.content-->
+				</div><!--/.span9-->

@@ -29,6 +29,9 @@ class Admin extends CI_Controller
 		$this->load->model('M_artikel');
 		$this->load->model('M_isiKategori');
 		$this->load->model('M_konfirmasi');
+		$this->load->model('M_artikel');
+		$this->load->model('M_isiKategori');
+		$this->load->model('M_konfirmasi');
 
 		function convRupiah($angka){
 			$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
@@ -185,6 +188,13 @@ class Admin extends CI_Controller
 
 	public function produk(){
 		$data['produk'] = $this->M_produk->view();
+		$this->load->view('admin/theme/header');
+		$this->load->view('admin/produk/vForm_produk');
+		$this->load->view('admin/theme/footer');
+	}
+
+		public function produk(){
+		$data['admin'] = $this->M_produk->view();
 		$this->load->view('admin/theme/header');
 		$this->load->view('admin/produk/vTable_produk', $data);
 		$this->load->view('admin/theme/footer');

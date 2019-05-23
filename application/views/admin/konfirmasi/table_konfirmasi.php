@@ -36,6 +36,7 @@
 											<td><?php echo $data->nama_pemilik;?></td>
 											<td><?php echo $data->nama_bank;?></td>
 											<td><?php echo convRupiah($data->jumlah_transfer);?></td>
+											<td><?php echo $data->jumlah_transfer;?></td>
 											<td><?php echo $data->alamat_kirim;?></td>
 											<td><?php echo $data->id_pembelian;?></td>
 											<td><?php echo $data->bukti;?></td>

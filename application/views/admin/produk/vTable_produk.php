@@ -3,11 +3,13 @@
 						<div class="module">
                                 <div class="module-head">
                                     <h3>DATA PRODUK</h3>
+                                    <h3>DATA ADMIN</h3>
                                 </div>
                                 <br>
                                         &nbsp;  &nbsp;
                                         <a href="<?= base_url('admin/form_produk')?>">
                                         	<button><b> &nbsp;<i class="icon-plus"></i>TAMBAH DATA PRODUK</b></button>
+                                        	<button><b> &nbsp;<i class="icon-plus"></i>TAMBAH DATA ADMIN</b></button>
                                         </a>
                                 <div class="module-body table">
 								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
@@ -16,6 +18,7 @@
 											<th><center>No.</center></th>
 											<th>Kategori</th>
 											<th>Nama Produk</th>
+											<th>Deskripsi</th>
 											<th>Harga</th>
 											<th>Stok</th>
 											<th>View</th>
@@ -27,12 +30,16 @@
 											$no = 1;
 											if(!empty($produk)){
 												foreach ($produk as $data) {
+											if(!empty($admin)){
+												foreach ($admin as $data) {
 										?>
 										<tr class="odd gradeX">
 											<td><center><?= $no++;?></center></td>
 											<td><?= $data->category?></td>
 											<td><?= $data->nama_produk?></td>
 											<td><?= convRupiah($data->harga)?></td>
+											<td><?= $data->deskripsi?></td>
+											<td><?= $data->harga?></td>
 											<td><?= $data->stok?></td>
 											<td><?= $data->views?></td>
 											<td><center>
